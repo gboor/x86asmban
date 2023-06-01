@@ -18,7 +18,7 @@ To run it in Bochs, use `bochs -f bochsrc.bxrc`. For debugging, use `bochsdbg -f
 Note that the audio does not work properly in Bochs!
 
 #### QEMU
-Running with [QEMU](https://www.qemu.org/) is also possible; `qemu-system-i386 -drive "format=raw,file=mbr.bin,if=floppy" -audiodev dsound,id=main -machine pcspk-audiodev=main` - audio does not work properly in QEMU.
+Running with [QEMU](https://www.qemu.org/) is also possible; `qemu-system-i386 -drive "format=raw,file=mbr.bin,if=floppy"` - audio does not work properly in QEMU.
 
 #### DOSBox-X
 [DOSBox-X](https://dosbox-x.com/) is a bit of a weird one, but this is the only emulator I found that properly handles the audio with 2 different timers to generate something that sounds vaguely decent.
