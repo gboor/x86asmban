@@ -1,6 +1,7 @@
 
 # ASMBan
 A pure 16-bit x86 assembly implementation of Sokoban, complete with animations and audio.
+This functions like a bootloader and works without an operating system. It can be booted in an emulator from within an OS.
 It uses [Mode 13h](https://en.wikipedia.org/wiki/Mode_13h) to draw in 320x200 pixels and uses a 256-colour palette.
 
 ## Why does this exist?
