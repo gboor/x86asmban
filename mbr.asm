@@ -18,7 +18,6 @@ main:
 
 	; Some error messages
 	disk_err db "Error reading disk", 0
-	sector_err db "Error reading sector", 0
 
 setcs:
 	; Base setup
@@ -76,9 +75,6 @@ setcs:
 	int 0x13		; Read interrupt
 	jc .disk_error		; Check carry bit for error
 
-	cmp al, SECTORS_TO_LOAD	; The interrupt sets 'al' to the number of sectors actually read
-	jne .sectors_error
-
 	; After a succesful load, the layout in memory will be the same as the layout in our ASM files,
 	; so we can jump to a defined label without worrying about offsets and exact addresses.
 	; The first phase is finished. Jump to the game label, defined in game.asm.
@@ -88,12 +84,6 @@ setcs:
 	push disk_err	; Print a disk error message
 	call print
 	cli		; Halt all interrupts and operations
-	hlt
-
-.sectors_error:
-	push sector_err	; Same as above, different message
-	call print
-	cli
 	hlt
 
 
