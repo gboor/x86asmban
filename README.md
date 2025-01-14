@@ -1,6 +1,8 @@
 
 # ASMBan
 A pure 16-bit x86 assembly implementation of Sokoban, complete with animations and audio.
+This functions like a bootloader and works without an operating system. It can be booted in an emulator from within an OS.
+
 It uses [Mode 13h](https://en.wikipedia.org/wiki/Mode_13h) to draw in 320x200 pixels and uses a 256-colour palette.
 
 ## Why does this exist?
@@ -18,7 +20,7 @@ To run it in Bochs, use `bochs -f bochsrc.bxrc`. For debugging, use `bochsdbg -f
 Note that the audio does not work properly in Bochs!
 
 #### QEMU
-Running with [QEMU](https://www.qemu.org/) is also possible; `qemu-system-i386 -drive "format=raw,file=mbr.bin,if=floppy" -audiodev dsound,id=main -machine pcspk-audiodev=main` - audio does not work properly in QEMU.
+Running with [QEMU](https://www.qemu.org/) is also possible; `qemu-system-i386 -drive "format=raw,file=mbr.bin,if=floppy"` - audio does not work properly in QEMU.
 
 #### DOSBox-X
 [DOSBox-X](https://dosbox-x.com/) is a bit of a weird one, but this is the only emulator I found that properly handles the audio with 2 different timers to generate something that sounds vaguely decent.
