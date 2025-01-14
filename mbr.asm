@@ -35,6 +35,9 @@ setcs:
 				; bootloader. Nothing is relocated or loaded there, so this should be fine.
 
 
+	; Store dl (or whole dx, as dl alone cannot be stored), as it contains the current disk index being read
+	push dx
+
 	; Set up the screen for displaying error messages and load the remaining sectors
 	; These calls could be defined as callable functions, but since they are only used once, it doesn't
 	; make that much sense to add that overhead and complexity.
@@ -59,7 +62,9 @@ setcs:
 
 	; Load the calculated numbers of sector from the disk
 	; For this function call, dl should be set to the disk number to read from. The BIOS sets dl to
-	; the disk number of the MBR and dl was not changed, so we don't have to set it.
+	; the disk number of the MBR. It is pushed at the start, so restored here.
+
+	pop dx
 
 	mov ax, SECTORS_TO_LOAD	; Number of sectors to read
 	mov bx, next_sector	; The memory address to read to
