@@ -314,11 +314,13 @@ get_input:
 	int 0x16		; Keyboard interrupt
 	jz .end_get_input	; If nothing in the buffer, stop
 
+	; Clear the carry flag, we have at least one key
+	clc
+
 .get_key:
 	; Read keystroke and clear from buffer
 	; Even though the above function also stores the pressed key in ax,
 	; it does not clear the buffer, so we must call this one to clear it
-	; This call also clears the carry flag, unless some error occurs
 	xor ah, ah		; Sub function 0x00 - read keystroke
 	int 0x16		; Keyoard interrupt
 	push ax			; Store the read key so we can re-use ah in the next call
