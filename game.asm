@@ -306,16 +306,10 @@ get_input:
 	push bp				; Basic stack setup
 	mov bp, sp
 
-	; Assume worst case, set the carry flag
-	stc
-
 	; Check for keyboard input - this sets the ZF to 1 if no keystroke is present
 	mov ah, 0x01		; Sub function 0x01 - check for keystroke
 	int 0x16		; Keyboard interrupt
-	jz .end_get_input	; If nothing in the buffer, stop
-
-	; Clear the carry flag, we have at least one key
-	clc
+	jz .no_input		; If nothing in the buffer, stop
 
 .get_key:
 	; Read keystroke and clear from buffer
@@ -329,10 +323,16 @@ get_input:
 	; keys don't pile up during animations
 	mov ah, 0x01		; Sub function 0x01 - check for keystroke
 	int 0x16		; If nothing in the buffer, stop
-
-	pop ax			; Restore read key
-
 	jnz .get_key		; Get another key if there are more
+
+	pop ax			; Restore the last read key
+	clc			; Clear the carry flag to indicate there is input
+
+	jmp .end_get_input	; Jump to end
+
+.no_input:
+	; There is no input, set the carry flag
+	stc
 
 .end_get_input:
 	mov sp, bp			; Restore stack
