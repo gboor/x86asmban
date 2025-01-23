@@ -56,6 +56,9 @@ game:
 	; Clear the screen (previous level bits may still be visible)
 	call clear_screen
 
+	; Clear the input buffer
+	call get_input
+
 .game_loop:
 	call draw_game
 
